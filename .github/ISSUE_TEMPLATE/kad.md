@@ -3,7 +3,7 @@ name: KAD
 about: Key Architectural Decision
 title: "[KAD]: "
 labels: kad
-assignees: RossBugginsNHS, jrbancroft
+assignees: jrbancroft, RossBugginsNHS
 
 ---
 
