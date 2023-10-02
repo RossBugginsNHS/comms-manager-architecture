@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Commuincations Manager Feature Requests
+    url:  https://digital.nhs.uk/services/communications-manager
+    about: Please open with the communications manager product teams
+  - name: Commuincations Manager Support Requests
+    url:  https://digital.nhs.uk/services/communications-manager
+    about: Please open with the communications manager support teams
