@@ -1,7 +1,5 @@
 # 1. KAD-CM-032 - Maturing Architecture
 
-
-
 ## 1.1. Summary
 To aid the future development of Communications Manager this outlines guidance for how to approach and mature architectural decisions.
 
@@ -12,6 +10,7 @@ Clarify existing Comms Manager Enterprise Architecture - Core capabilities and r
 1. Outcomes / Decisions from discussions around Maturing Architecture => Target Architecture 
 
 ### 1.1.1. Why?
+
 [At some point](https://ddd.mikaelvesavuori.se/readme/on-design), you won't have technical problems, only design problems relating to poor models, poor decisions, and poor structure.
 
 To help avoid this, all projects require a plan, setting out a target that should be followed.
@@ -247,7 +246,7 @@ Integration with Communications Manager, not AWS directly
 
 ### 1.4.1. Architecture 
 
-Architectural <Principles> are adhered to by following Architectural <Styles> that are implemented whilst applying Architectural <Patterns>
+Architectural **<Principles>** are adhered to by following Architectural **<Styles>** that are implemented whilst applying Architectural **<Patterns>**
 
 *"The Stuff that's hard to change" - Dylan Beattie*
 
@@ -270,7 +269,7 @@ NHS Digital provides high level Architectural Principles, however, these are at 
 
 *todo: where should this go? *
 
-5. Build a data layer with registers and APIs
+**5: Build a data layer with registers and APIs**
 
 - We should be API First.
 - But should specify EOL / minimum support.
@@ -278,8 +277,8 @@ NHS Digital provides high level Architectural Principles, however, these are at 
 - Do not agree with Store once.
 - In distributed systems need to allow for eventual consistency and restoring data that - from another system in another bounded context.
 - As long as a source of truth is identified, and that process is in place for eventual consistency update on source changing.
-- 
-8. Ask what the user need is 
+  
+**8: Ask what the user need is **
 
 - Ensure that User Need and User Want are not interchangeably used / confused
 
@@ -358,9 +357,9 @@ Getting parameter values
 
 **Templating**
 
-Management: Managing the creation / editing of templates
+*Management:* Managing the creation / editing of templates
 
-Run time: Loading parameters into templates
+*Run time:* Loading parameters into templates
 
 Templating is likely to be the most complex here, that likely needs multiple sub domains - ie different channels  (eg email, sms, postal) needing different template types, and different channels supporting multiple media types (eg audio vs brail vs letter). There are also going to be numerous output formats from templating, structured data (eg json), un structured data (eg pdf, mp4, wav) - this may be in a separate subdomain - eg formatters which convert structured data into the desired unstructured format. 
 
@@ -393,24 +392,27 @@ Email Channel, may be many providers, and many supported media types. NHS App wo
 #### 1.4.3.4. Communications Manager Domain Analysis: Generic Sub Domains
 
 ##### 1.4.3.4.1. Logging
+
 Support for centralised application logging 
 
 ##### 1.4.3.4.2. Metrics
+
 Support for centralised application metrics
 
 ##### 1.4.3.4.3. Inbound
+
 Inbound integration layers, APIM, MESH etc.
 
 ### 1.4.4. Event Driven Architecture: Overview
 
-When to use:
+**When to use:**
 
 - Multiple subsystems may process the same events
 - Real-time processing with minimum time lag
 - Complex event processing, such as pattern matching or aggregation over time windows
 - High volume and high velocity of data, such as IoT
-- 
-Benefits
+  
+**Benefits:**
 
 - Producers and consumers are decoupled.
 - No point-to-point integrations. It's easy to add new consumers to the system.
