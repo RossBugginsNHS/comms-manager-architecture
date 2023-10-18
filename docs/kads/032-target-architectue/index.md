@@ -80,11 +80,11 @@ It has included:
       - [1.3.2.3. Context - Management Interface - Does not exist](#1323-context---management-interface---does-not-exist)
       - [1.3.2.4. Context - Development Interface - Does not exist](#1324-context---development-interface---does-not-exist)
       - [1.3.2.5. System Context: Target Diagram](#1325-system-context-target-diagram)
-      - [Summarised Contexts for integration with Comms Manager](#summarised-contexts-for-integration-with-comms-manager)
-      - [Why / How change?](#why--how-change)
-  - [Strategic Architecture](#strategic-architecture)
-    - [Architecture](#architecture)
-      - [Review of NHS D Architectural Principles](#review-of-nhs-d-architectural-principles)
+      - [1.3.2.6. Summarised Contexts for integration with Comms Manager](#1326-summarised-contexts-for-integration-with-comms-manager)
+      - [1.3.2.7. Why / How change?](#1327-why--how-change)
+  - [1.4. Strategic Architecture](#14-strategic-architecture)
+    - [1.4.1. Architecture](#141-architecture)
+      - [1.4.1.1. Review of NHS D Architectural Principles](#1411-review-of-nhs-d-architectural-principles)
 
 ## 1.3. System Context & Enterprise Architecture Capabilities / Requirements
 
@@ -136,11 +136,11 @@ Currently, (outside of the actual requests to send messages) there is very limit
 
 Integration with Communications Manager, not AWS directly
 
-####  Summarised Contexts for integration with Comms Manager
+####  1.3.2.6. Summarised Contexts for integration with Comms Manager
 
 ![Context Target Summary](static/context-target-summary.png)
 
-#### Why / How change?
+#### 1.3.2.7. Why / How change?
 
 - This can be achieved iteratively
 - Will help move towards goal of API driven for customers
@@ -151,15 +151,15 @@ Integration with Communications Manager, not AWS directly
 - Reduce need for AWS understanding / daily use
 - Eventually only APIS CI/CD should interface between Comms Manager and AWS
 
-## Strategic Architecture
+## 1.4. Strategic Architecture
 
-### Architecture 
+### 1.4.1. Architecture 
 
 Architectural <Principles> are adhered to by following Architectural <Styles> that are implemented whilst applying Architectural <Patterns>
 
 *"The Stuff that's hard to change" - Dylan Beattie*
 
-#### Review of NHS D Architectural Principles
+#### 1.4.1.1. Review of NHS D Architectural Principles
 
 1. Deliver Sustainable Services
 1. Put our tools in modern browsers    
