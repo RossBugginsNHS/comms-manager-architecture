@@ -436,7 +436,7 @@ A key requirement of EventSourcing is a streaming of EDA.
 
 EDA alone isn't a silver bullet. Consideration needs to be made not only about what model is used, but also what it is being used for.
 
-![Alt text](image.png)
+![Alt text](static/image.png)
 
 ###### 1.4.4.1.3.1. In side a Bounded Context
 
@@ -604,7 +604,7 @@ Example Diagram showing how the routing plan will start being created when a val
 
 **Note**: Nothing knows how their events are going to be used.
 
-![Alt text](image-1.png)
+![Alt text](static/image-1.png)
 
 Written Example:
 
@@ -679,7 +679,7 @@ Microservices BUY you the option to:
 
 **MONOLITH=  GOOD AT IMMEDIATE CONSISENTCY <------------------------------ > MICROSERVICE = FLEXIBILE HIGH AVALIBILITY**
 
-![Alt text](image-2.png)
+![Alt text](static/image-2.png)
 
 #### 1.4.6.4. Distributed Monoliths: When microservices encounter entropy
 
@@ -694,7 +694,7 @@ You get the worst of both worlds:
 
 Aim to avoided them. However, many "microservice" projects fall towards them, without knowing they are/have done so. The build up of tech debt leads to the fall into the monolithic pits:
 
-![Alt text](image-3.png)
+![Alt text](static/image-3.png)
 
 ##### 1.4.6.4.1. Spotting a distributed monolith
 
@@ -811,7 +811,7 @@ Probably the key point to DDD. With this accepted, then rest often falls into pl
 
 A person interacting with a System/Application that has many domains, each with the the same "Physical Person" described in their own language.
 
-![Alt text](image-4.png)
+![Alt text](static/image-4.png)
 
 **Key Takeaways**
 
@@ -826,7 +826,7 @@ A person interacting with a System/Application that has many domains, each with 
  
 **Helps to avoid**
 
-![Alt text](image-5.png)
+![Alt text](static/image-5.png)
 
 #### 1.5.1.3. A domain model
 
@@ -856,13 +856,13 @@ Current belief is that everything should have consistent naming across the entir
 
 Diagram of the now BC - ie a single BC spanning the whole of the domain
 
-![Alt text](image-6.png)
+![Alt text](static/image-6.png)
 
 #### 1.5.2.3. Future
 
 Diagram showing the future broken up into multiple BCs, each covering one domain, or possibly spanning 1 or 2 domains.
 
-![Alt text](image-7.png)
+![Alt text](static/image-7.png)
 
 ### 1.5.3. Command Query Responsibility Segregation (CQRS): Overview
 
@@ -1011,7 +1011,7 @@ The "cache" is deleted, and it is re run on the event stream from position 0, re
 
 All can be linked and used together, but can exist in various combinations - best shown by:
 
-![Alt text](image.png)
+![Alt text](static/image.png)
 
 ### 1.5.6. Event Sourcing:  Communications Manager
 
@@ -1071,7 +1071,7 @@ As new features come on board, or changes to existing parts of the legacy bounde
 
 #### 1.6.1.1. Existing DDD Strategic Architecture
 
-![Alt text](image-6.png)
+![Alt text](static/image-6.png)
 
 Single Bounded Context spanning all domains. Identified by:
 
@@ -1083,7 +1083,7 @@ Single Bounded Context spanning all domains. Identified by:
 
 Not final, a version of domain analysis needs finalising, and then target BCs mapping out.
 
-![Alt text](image-7.png)
+![Alt text](static/image-7.png)
 
 - Each BC can have its own model and UL suitable for its function and process
 - Each can utilise the storage pattern best for that use case
@@ -1147,7 +1147,7 @@ Clearly separated bounded contexts allow future new developers to be able to onb
 
 EventStreams allow new versions to be "in sync" with live versions before switch overs.
 
-![Alt text](image-8.png)
+![Alt text](static/image-8.png)
 
 ### 1.7.6. Ability to support different versions for different customers / tenants
 
