@@ -85,6 +85,13 @@ It has included:
   - [1.4. Strategic Architecture](#14-strategic-architecture)
     - [1.4.1. Architecture](#141-architecture)
       - [1.4.1.1. Review of NHS D Architectural Principles](#1411-review-of-nhs-d-architectural-principles)
+        - [1.4.1.1.1. Comments](#14111-comments)
+    - [1.4.2. Domain Analysis: Overview](#142-domain-analysis-overview)
+      - [1.4.2.1. What is / Why Domain Analysis is important:](#1421-what-is--why-domain-analysis-is-important)
+      - [1.4.2.2. Core Domains](#1422-core-domains)
+      - [1.4.2.3. Supporting Sub Domains](#1423-supporting-sub-domains)
+      - [1.4.2.4. Generic Domains](#1424-generic-domains)
+    - [1.4.3. Domain Analysis: Communications Manager](#143-domain-analysis-communications-manager)
 
 ## 1.3. System Context & Enterprise Architecture Capabilities / Requirements
 
@@ -173,3 +180,59 @@ Architectural <Principles> are adhered to by following Architectural <Styles> th
 1. Reuse before Buy/Build  
 
 NHS Digital provides high level Architectural Principles, however, these are at a high level and are only nominally useful for real world guidance . They require supporting with clear Architectural Styles and Patterns that should be followed.  
+
+##### 1.4.1.1.1. Comments
+
+*todo: where should this go? *
+
+5. Build a data layer with registers and APIs
+
+- We should be API First.
+- But should specify EOL / minimum support.
+- Should have multiple version support.
+- Do not agree with Store once.
+- In distributed systems need to allow for eventual consistency and restoring data that - from another system in another bounded context.
+- As long as a source of truth is identified, and that process is in place for eventual consistency update on source changing.
+- 
+8. Ask what the user need is 
+
+- Ensure that User Need and User Want are not interchangeably used / confused
+
+### 1.4.2. Domain Analysis: Overview
+
+#### 1.4.2.1. What is / Why Domain Analysis is important:
+
+- Design so that each service forms a natural fit to a functional requirement. 
+- Avoid the trap of letting organizational boundaries or technology choices dictate the - design
+- Which functions are closely related
+- Which functions are core to the service, and which provide ancillary services
+- What is the dependency graph
+- Not concerned with technologies or implementation details
+
+Domain Analysis looks at the "Domain", which typically is classified as the "Problem Space".  The current application has its "Solution Space" which maps to / overlays this Domain Analysis.  In the future, their will likely be a different "Solution Space" which maps to this same Domain Analysis, but in a way that aligns with the Architectural guidance in this document.
+
+n.b. "Problem Space" vs "Solution Space" isn't always a great way to consider things, as one persons "Solution" if often another person / teams "Problem".
+
+However, there needs to be a way to show how different parts of the "solution" may overlap different parts of the "problem".  
+
+#### 1.4.2.2. Core Domains
+
+Core domains are the essence of the application, they are what makes Communications manager what it is, and without them the application is something different, or non existent. 
+
+#### 1.4.2.3. Supporting Sub Domains
+
+Supporting subdomains are needed for the Core Domain to fully function, but they could maybe be provided by a more generic solution, but with some customisation.
+
+#### 1.4.2.4. Generic Domains
+
+Generic subdomains are needed for the Core Domain and Supporting Subdomains, but are going to likely be off the shelf systems that provide the functionality.
+
+### 1.4.3. Domain Analysis: Communications Manager 
+
+The communications manager application is split into a number of sub domains. Core domains are the essence of the application, they are what makes Communications manager what it is, and without them the application is something different, or non existent. 
+
+This outline sketch is of the Communications Manager application separated into separate domains.
+
+*(may be better as a photo of a white board, rather than a c4)*
+
+![Domain Analysis](static/cm-domains.png)
