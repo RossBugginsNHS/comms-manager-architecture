@@ -92,6 +92,21 @@ It has included:
       - [1.4.2.3. Supporting Sub Domains](#1423-supporting-sub-domains)
       - [1.4.2.4. Generic Domains](#1424-generic-domains)
     - [1.4.3. Domain Analysis: Communications Manager](#143-domain-analysis-communications-manager)
+      - [1.4.3.1. Communications Manager Domain Analysis: Core Domains](#1431-communications-manager-domain-analysis-core-domains)
+        - [1.4.3.1.1. Delivery](#14311-delivery)
+      - [1.4.3.2. Communications Manager Domain Analysis: Supporting Sub Domains](#1432-communications-manager-domain-analysis-supporting-sub-domains)
+        - [1.4.3.2.1. Preparation](#14321-preparation)
+      - [1.4.3.3. Contacts](#1433-contacts)
+        - [1.4.3.3.1. Dispatchers](#14331-dispatchers)
+      - [1.4.3.4. Communications Manager Domain Analysis: Generic Sub Domains](#1434-communications-manager-domain-analysis-generic-sub-domains)
+        - [1.4.3.4.1. Logging](#14341-logging)
+        - [1.4.3.4.2. Metrics](#14342-metrics)
+        - [1.4.3.4.3. Inbound](#14343-inbound)
+    - [1.4.4. Event Driven Architecture: Overview](#144-event-driven-architecture-overview)
+      - [1.4.4.1. EDA Models](#1441-eda-models)
+        - [1.4.4.1.1. Pub Sub](#14411-pub-sub)
+        - [1.4.4.1.2. Streaming](#14412-streaming)
+        - [1.4.4.1.3. Where EDA can be located](#14413-where-eda-can-be-located)
 
 ## 1.3. System Context & Enterprise Architecture Capabilities / Requirements
 
@@ -236,3 +251,119 @@ This outline sketch is of the Communications Manager application separated into 
 *(may be better as a photo of a white board, rather than a c4)*
 
 ![Domain Analysis](static/cm-domains.png)
+
+#### 1.4.3.1. Communications Manager Domain Analysis: Core Domains
+
+##### 1.4.3.1.1. Delivery
+
+Delivering messages to people, in the most effective way is what the essence of Communications Manager about. The effectiveness may have different measures, for example, cost, or suitability of channel and media, based on adjustments (eg brail, audio). 
+
+This has been separated into two future sub domain, which are both Core Domains.
+
+**Routing** 
+
+Routing is responsible for choosing what channels will be used for a specific campaign, in what order, and what retries will occur.
+
+**Dispatch**
+
+Dispatch is for actually getting the messages to people, choosing what provider to use per channel, and deciding if a message has been delivered and/or read.
+
+#### 1.4.3.2. Communications Manager Domain Analysis: Supporting Sub Domains
+
+##### 1.4.3.2.1. Preparation
+
+Everything that needs to happen to a message(s) before they are ready to be routed and dispatched.
+
+**Receiving**
+
+Receiving single or batch messages, with any required initial validation
+
+**Splitting**
+
+Splitting batches into single messages
+
+**Enrichment**
+
+Getting parameter values
+
+**Templating**
+
+Management: Managing the creation / editing of templates
+
+Run time: Loading parameters into templates
+
+Templating is likely to be the most complex here, that likely needs multiple sub domains - ie different channels  (eg email, sms, postal) needing different template types, and different channels supporting multiple media types (eg audio vs brail vs letter). There are also going to be numerous output formats from templating, structured data (eg json), un structured data (eg pdf, mp4, wav) - this may be in a separate subdomain - eg formatters which convert structured data into the desired unstructured format. 
+
+#### 1.4.3.3. Contacts
+Getting contact information (and any other, core central demographic) data.
+
+**PDS**
+
+Getting Demographic data from PDS. Caching, updating etc.
+
+##### 1.4.3.3.1. Dispatchers
+Responsible for getting a message to a person, via a channel 
+
+**Postal**
+
+Postal Channel, may be many providers, and many supported media types
+
+**Email**
+
+Email Channel, may be many providers, and many supported media types
+
+**SMS**
+
+SMS Channel, may be many providers, unlikely to be more that just text media type. 
+
+**Push Notifications**
+
+Email Channel, may be many providers, and many supported media types. NHS App would be a provider here.
+
+#### 1.4.3.4. Communications Manager Domain Analysis: Generic Sub Domains
+
+##### 1.4.3.4.1. Logging
+Support for centralised application logging 
+
+##### 1.4.3.4.2. Metrics
+Support for centralised application metrics
+
+##### 1.4.3.4.3. Inbound
+Inbound integration layers, APIM, MESH etc.
+
+### 1.4.4. Event Driven Architecture: Overview
+
+When to use:
+
+- Multiple subsystems may process the same events
+- Real-time processing with minimum time lag
+- Complex event processing, such as pattern matching or aggregation over time windows
+- High volume and high velocity of data, such as IoT
+- 
+Benefits
+
+- Producers and consumers are decoupled.
+- No point-to-point integrations. It's easy to add new consumers to the system.
+- Consumers can respond to events immediately as they arrive.
+- Highly scalable and distributed.
+- Subsystems have independent views of the event stream.
+
+#### 1.4.4.1. EDA Models
+
+There are two key models for Event Driven Architecture, Pub Sub and Event Streaming.
+
+##### 1.4.4.1.1. Pub Sub
+
+ The messaging infrastructure keeps track of subscriptions. When an event is published, it sends the event to each subscriber. After an event is received, it can't be replayed, and new subscribers don't see the event.
+
+##### 1.4.4.1.2. Streaming
+
+Events are written to a log. Events are strictly ordered (within a partition) and durable. Clients don't subscribe to the stream, instead a client can read from any part of the stream. The client is responsible for advancing its position in the stream. That means a client can join at any time, and can replay events
+
+A key requirement of EventSourcing is a streaming of EDA. 
+
+##### 1.4.4.1.3. Where EDA can be located
+
+EDA alone isn't a silver bullet. Consideration needs to be made not only about what model is used, but also what it is being used for.
+
+![Alt text](image.png)
