@@ -57,7 +57,7 @@ It has included:
   - Tactical DDD
   - API First 
   - Choreography
-  - CQRQ
+  - CQRS
   - EventSourcing
   - Async Request Reply
 
@@ -325,7 +325,7 @@ This outline sketch is of the Communications Manager application separated into 
 
 ##### 1.4.3.1.1. Delivery
 
-Delivering messages to people, in the most effective way is what the essence of Communications Manager about. The effectiveness may have different measures, for example, cost, or suitability of channel and media, based on adjustments (eg brail, audio). 
+Delivering messages to people, in the most effective way is what the essence of Communications Manager about. The effectiveness may have different measures, for example, cost, or suitability of channel and media, based on adjustments (eg braille, audio). 
 
 This has been separated into two future sub domain, which are both Core Domains.
 
@@ -361,7 +361,7 @@ Getting parameter values
 
 *Run time:* Loading parameters into templates
 
-Templating is likely to be the most complex here, that likely needs multiple sub domains - ie different channels  (eg email, sms, postal) needing different template types, and different channels supporting multiple media types (eg audio vs brail vs letter). There are also going to be numerous output formats from templating, structured data (eg json), un structured data (eg pdf, mp4, wav) - this may be in a separate subdomain - eg formatters which convert structured data into the desired unstructured format. 
+Templating is likely to be the most complex here, that likely needs multiple sub domains - ie different channels  (eg email, sms, postal) needing different template types, and different channels supporting multiple media types (eg audio vs braille vs letter). There are also going to be numerous output formats from templating, structured data (eg json), un structured data (eg pdf, mp4, wav) - this may be in a separate subdomain - eg formatters which convert structured data into the desired unstructured format. 
 
 #### 1.4.3.3. Contacts
 Getting contact information (and any other, core central demographic) data.
@@ -478,7 +478,7 @@ For example, and Order domain that has collated information from Shipping, Produ
 
 EG:
 
-OrderPlaced: {Customer Name="Joe Bloggs", Address="1 the street, england, ab1123", Order Items = [{Name="Item1", Price=1.00},...n ], "Payment Method"="visa", Datemade="1/1/20"}
+OrderPlaced: {Customer Name="Joe Bloggs", Address="1 the street, england, ab1123", Order Items = [{Name="Item1", Price=1.00},...n ], "Payment Method"="visa", Date="1/1/20"}
 
 This event is now dependant on many different domains, thus any domains that use this event are also implicitly dependant upon them.
 
@@ -515,7 +515,7 @@ Allow for serious time and thought as to what the contracts that events contain.
 - Change the contract that specifies the events
 - Create new versions of the events
 - 
-You can run multiple versions of events, with different consumers having different versions. Or you can aim to make event changes backwards compatible. However, not always easy as you dont know how consumers are parsing your events.
+You can run multiple versions of events, with different consumers having different versions. Or you can aim to make event changes backwards compatible. However, not always easy as you don't know how consumers are parsing your events.
 
 **Design events wisely.**
 
@@ -614,14 +614,14 @@ Written Example:
 1. This is handled by SendMessageCommandHandler, which stores basic details and raises NewMessageReceivedEvent
 1. This is handled by MessageValidator, it validates, stores some state, and raises event of MessageValidatedEvent
 1. Message enricher is subscribed to this, it enriches, stores some state, and raises event of MessageEnrichedEvent
-1. Routing is subscribed to this, it decided on routing, stores some state, and raises event of MessageRouitingDecisionMadeEvent
+1. Routing is subscribed to this, it decided on routing, stores some state, and raises event of MessageRoutingDecisionMadeEvent
 1. Dispatcher is subscribed to this, it decided on which channel to to dispatch to, stores some state, and raises event of MessageDispatchChannelChosenEvent
 1. SMSDispatcher is subscribed to this, decided which provider to dispatch with, stores some state, and raises event of MessageDispatchProviderChosenEvent
 1. UKGovNotifySMSDispatcher is subscribed to this, dispatches, stores some state, and raised event of MessageDispatchedEvent 
 1. UKGovNotifySMSCallbacks gets an external response, the response is that is failed to be delivered, stores some state, and raises event of MessageDeliveryReportReceivedEvent
 1. Routing is subscribed to this, and makes a decision and the loop continues through its various routing decisions.
-1. RoutingQueryDataBuilderForAPIVersion1 is subscibed to all of these events, and storing data in a format that is correct for V1 of the API, ready for quick access at time of read from the consumer
-1. RoutingQueryDataBuilderForAPIVersion2 is subscibed to all of these events, and storing data in a format that is correct for V2 of the API, ready for quick access at time of read from the consumer
+1. RoutingQueryDataBuilderForAPIVersion1 is subscribed to all of these events, and storing data in a format that is correct for V1 of the API, ready for quick access at time of read from the consumer
+1. RoutingQueryDataBuilderForAPIVersion2 is subscribed to all of these events, and storing data in a format that is correct for V2 of the API, ready for quick access at time of read from the consumer
 
 #### 1.4.5.1. How this differs to now
 
@@ -679,7 +679,7 @@ Microservices BUY you the option to:
 - deploy independently
 - But like all things you buy, it comes at a COST
 
-**MONOLITH=  GOOD AT IMMEDIATE CONSISENTCY <------------------------------ > MICROSERVICE = FLEXIBILE HIGH AVALIBILITY**
+**MONOLITH=  GOOD AT IMMEDIATE CONSISTENCY <------------------------------ > MICROSERVICE = FLEXIBLE HIGH AVAILABILITY**
 
 ![Alt text](static/image-2.png)
 
@@ -703,7 +703,7 @@ Aim to avoided them. However, many "microservice" projects fall towards them, wi
 - Shared data store shared between all microservices
 - Microservices controlling other "downstream" microservices, either through direct api calls or through - command queues
 - Often with all code base all in one repo (but not always, mono repos can be very good)
-- No EDA - ie direct api calls or Queues coupling 1-1 between microservices instead of 1-infintine event - bus (pub sub or eventstreaming)
+- No EDA - ie direct api calls or Queues coupling 1-1 between microservices instead of 1-infinite event - bus (pub sub or event streaming)
 - No acknowledgement that eventual consistency is a requirement
 - When data is only stored once, in one place, in one format.
 
@@ -742,16 +742,16 @@ Would normally recommend that Microservice is sized to cover a service inside a 
 
 Serverless functions should be small, really small. At the moment, a serverless function is representing a whole microservice. Should expose separate functionality as separate serverless functions.
 
-Eg, instead of "Encrich Message", and inside that all having the get to PDS and validation, should have multiple serverless functions, eg "GET PDS", validate PDS etc. This would then also steps such as GET HTTP request for PDS to not be in a serverless function at all, and instead use dedicated services such as AWS event API destination tasks. 
+Eg, instead of "Enrich Message", and inside that all having the get to PDS and validation, should have multiple serverless functions, eg "GET PDS", validate PDS etc. This would then also steps such as GET HTTP request for PDS to not be in a serverless function at all, and instead use dedicated services such as AWS event API destination tasks. 
 
 #### 1.4.6.7. CI / CD And Microservices and DDD - what gets deployed when?
 
-**With CI/CD you will be deploying the Microservice as a unit.** This is why sizing it correctly is important. In serverless world, this means the CI/CD pipeline will deploy multiple lambdas at once. Recommend a microservice for AWS is definied using serverless.yml definitions.
+**With CI/CD you will be deploying the Microservice as a unit.** This is why sizing it correctly is important. In serverless world, this means the CI/CD pipeline will deploy multiple lambdas at once. Recommend a microservice for AWS is defined using serverless.yml definitions.
 
 Can be enhanced through CQRS, EDA, and API first comms between Microservices
 
 - Commands between Microservices shouldn't be happening, all microservices should really be event driven, reacting to events from elsewhere
-- However, need API endpoints for quering of data from a microservice
+- However, need API endpoints for querying of data from a microservice
   - these should be api gateway, with rate limiting etc per "tenant" or some other grouping - (also needed for making sure don't get traffic storm impacts from anaemic events)
 
 ### 1.4.7. Microservices : Communications Manager
@@ -774,7 +774,7 @@ Should consider
 
 - API Semantic Versioning
   - sub 1.0 -  initial development - but can still be for prod data
-  - tag with aplha, beta - 
+  - tag with alpha, beta - 
   - Short and Long Term release versions - alternating version numbers?
   - Clear Sunsetting policy 
 - Link to GDS private alpha / beta
@@ -784,7 +784,7 @@ Should consider
 
 API First, then work on expanding who can use APIs.
 
-- IE start with APIs that are for developers / techs - eg edit tempate via api rather than S3 bucket - directly
+- IE start with APIs that are for developers / techs - eg edit template via api rather than S3 bucket - directly
 - Then allow wider CM teams to use the API
 - Then create a web app for that API
 - Then start on allowing customers to use the web app to self service
@@ -852,7 +852,7 @@ Probably the most important change to be made. Currently a lot of focus on names
 
 Clearly separating the Bounded Contexts, and with each having its Domain Model, with its own language will stop this.
 
-Current belief is that everything should have consistent naming across the entire application domain. As there are no existing clear bounded contexts, this is a very present struggle. It will only get harder unless an execise in proper Bounded Context separation is not undertaken.
+Current belief is that everything should have consistent naming across the entire application domain. As there are no existing clear bounded contexts, this is a very present struggle. It will only get harder unless an exercise in proper Bounded Context separation is not undertaken.
 
 ####  1.5.2.2. The Now
 
@@ -919,8 +919,8 @@ TODO: Also to cover:
 
 - improve reporting performance, cost and flexibility.
 - Support APIs with a target response time, both POST and GET
-- Pre calculate and store reporting data separately from transactional (dynamodb) and event (athenta s3 - queries). Ie store pre aggregated data in the format that is ready to go
-- Link with eventstreaming to replay events to rebuild reporting datasets on past events
+- Pre calculate and store reporting data separately from transactional (dynamodb) and event (athena s3 - queries). Ie store pre aggregated data in the format that is ready to go
+- Link with event streaming to replay events to rebuild reporting datasets on past events
 
 ### 1.5.5. Event Sourcing: Overview
 
@@ -934,7 +934,7 @@ It is not about getting rid of tradition database - its just that what is stored
 
 **Example
 **
-This is to show why eventstreaming should be used for state changes, and how different versions of Query outputs can be created to provide different results, and can replay eventstreams to bring them up to date.
+This is to show why event streaming should be used for state changes, and how different versions of Query outputs can be created to provide different results, and can replay event streams to bring them up to date.
 
 **Commands**
 
@@ -1027,7 +1027,7 @@ Note - by separating CM into many Bounded Contexts, it means that ES and CQRS do
 
 - Used with microservices architecture.
 - Have a Microservice that is controlling how data / commands flow between microservices. It "knows" about the end to end goals
-- Often will be that microservices raise events, the orcestrator listens for them all, and calls specific api endpoints on other microservices to tell them to do something.
+- Often will be that microservices raise events, the orchestrator listens for them all, and calls specific api endpoints on other microservices to tell them to do something.
 
 #### 1.5.7.2. Chorography
 
@@ -1098,7 +1098,7 @@ Not final, a version of domain analysis needs finalising, and then target BCs ma
 
 TODO
 
-Primarily uses to support communication between legancy systems and new. For example, between legacy and new BCs would need an ACL to support integration.
+Primarily uses to support communication between legacy systems and new. For example, between legacy and new BCs would need an ACL to support integration.
 
 #### 1.6.2.2. Strangler Fig
 
@@ -1162,7 +1162,7 @@ EventStreams allow new versions to be "in sync" with live versions before switch
 
 ### 1.7.8. Better reporting options
 
-- CQRS and eventsourcing stream replays allow for reports data to be generated once.
+- CQRS and event sourcing stream replays allow for reports data to be generated once.
 - allows for APIs Gets to have low latency limits as long running queries will not exist
 
 ## 1.8. References
@@ -1184,7 +1184,7 @@ EventStreams allow new versions to be "in sync" with live versions before switch
 - Tenancy models for a multitenant solution - Azure Architecture Center | Microsoft Learn
 - example-ddd-cmd-query.drawio - draw.io
 - Considerations for multitenant control planes - Azure Architecture Center | Microsoft Learn
-- Noisy Neighbor antipattern - Azure Architecture Center | Microsoft Learn
+- Noisy Neighbour antipattern - Azure Architecture Center | Microsoft Learn
 - Throttling pattern - Azure Architecture Center | Microsoft Learn
 - Saga pattern - Azure Design Patterns | Microsoft Learn
 - Scheduler Agent Supervisor pattern - Azure Architecture Center | Microsoft Learn
